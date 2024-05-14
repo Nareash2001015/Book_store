@@ -1,9 +1,9 @@
 import express from "express";
-import { Book } from "../models/bookModel";
+import { Book } from "../models/bookModel.js";
 
 const router = express.Router();
 
-router.post("/books", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     if (!req.body.title | !req.body.author | !req.body.publishYear) {
       return res.status(404).send({
@@ -23,7 +23,7 @@ router.post("/books", async (req, res) => {
   }
 });
 
-router.get("/books", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const books = await Book.find({});
     return res.status(200).send(books);
@@ -35,7 +35,7 @@ router.get("/books", async (req, res) => {
   }
 });
 
-router.get("/books/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const books = await Book.findById(id);
