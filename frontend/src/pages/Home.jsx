@@ -6,10 +6,12 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 import { useEffect, useState } from "react";
+import DeleteBook from "./DeleteBook";
 
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -28,6 +30,9 @@ function Home() {
 
   return (
     <div className="p-4">
+      {
+        showDelete && <DeleteBook onClose={() => setShowDelete(false)}/>
+      }
       <div className="flex justify-between">
         <h1 className="text-3xl my-8">Book List</h1>
         <Link to="/books/create">
@@ -73,9 +78,7 @@ function Home() {
                       <Link to={`/books/edit/${book._id}`}>
                         <AiOutlineEdit className="text-2xl text-yellow-600" />
                       </Link>
-                      <Link to={`/books/delete/${book._id}`}>
-                        <MdOutlineDelete className="text-2xl text-red-600" />
-                      </Link>
+                      <MdOutlineDelete className="text-2xl text-red-600" onClick={() => setShowDelete(true)}/>
                     </div>
                   </td>
                 </tr>
